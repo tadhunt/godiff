@@ -28,6 +28,18 @@ func argToValue(a interface{}) (*reflect.Value, error) {
 	return &v, nil
 }
 
+
+func ArrayDiff(a, b interface{}) ([]*DiffResult, error) {
+	type adiff struct {
+		A interface{}
+	}
+
+	aa := &adiff{A: a}
+	ab := &adiff{A: b}
+
+	return StructDiff(aa, ab)
+}
+
 func StructDiff(a, b interface{}) ([]*DiffResult, error) {
 	av, err := argToValue(a)
 	if err != nil {

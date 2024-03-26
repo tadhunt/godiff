@@ -299,3 +299,26 @@ func TestMapDiff(t *testing.T) {
 		t.Fatalf("expected bval == 'b' got %v", result.BVal)
 	}
 }
+
+func TestArrayDiff(t *testing.T) {
+	a := []string{"a", "b", "c"}
+
+	results, err := ArrayDiff(a, a)
+	if err != nil {
+		t.Fatalf("%v", err)
+	}
+	if len(results) != 0 {
+		t.Fatalf("expected no diff, found %d", len(results))
+	}
+
+	b := []string{"a", "b", "b"}
+
+	results, err = ArrayDiff(a, b)
+	if err != nil {
+		t.Fatalf("%v", err)
+	}
+	if len(results) != 1 {
+		t.Fatalf("expected 1 diff, found %d", len(results))
+	}
+	t.Logf("%#v", results[0])
+}
